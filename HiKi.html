@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HiKi Kelson Shop</title>
+  <title>HiKi Dessert Shop</title>
   <link rel="stylesheet" href="HiKi.css">
 </head>
 <body>
@@ -12,14 +12,31 @@
       <h1>HiKi Dessert Shop</h1>
     </div>
   </header>
-  
+
   <main>
     <section class="product-container">
       <div class="product" id="round-cakes">
         <h2>Round Cakes</h2>
         <p>Price: €30</p>
+
         <label for="round-cakes-qty">Quantity: </label>
         <input type="number" id="round-cakes-qty" value="0" min="0">
+
+        <label for="cake-flavor">Choose a flavor:</label>
+        <select id="cake-flavor">
+          <option value="chocolate">Chocolate</option>
+          <option value="nougat">Nougat</option>
+          <option value="ferrero">Ferrero</option>
+          <option value="fruit">Fruit</option>
+          <option value="cheesecake">Cheesecake</option>
+          <option value="rum">Rum</option>
+          <option value="banana">Banana Cake</option>
+        </select>
+
+        <label for="cake-message">Message (max 15 chars):</label>
+        <input type="text" id="cake-message" maxlength="15" placeholder="Happy Birthday!">
+
+        <p id="countdown">Time left to pick up: <span id="time-left">16:00:00</span></p>
       </div>
 
       <div class="product" id="party-ceram">
@@ -50,6 +67,33 @@
     <p>&copy; 2024 HiKi Dessert Shop. All Rights Reserved.</p>
   </footer>
 
-  <script src="HiKi.js"></script>
+  <script>
+    // Countdown logic
+    function startCountdown(duration, display) {
+      let timer = duration, hours, minutes, seconds;
+      setInterval(() => {
+        hours = Math.floor(timer / 3600);
+        minutes = Math.floor((timer % 3600) / 60);
+        seconds = timer % 60;
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = `${hours}:${minutes}:${seconds}`;
+
+        if (--timer < 0) {
+          timer = 0; // Stop at zero
+        }
+      }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const countdownDisplay = document.getElementById('time-left');
+      const sixteenHours = 16 * 60 * 60; // 16 hours in seconds
+
+      startCountdown(sixteenHours, countdownDisplay);
+    });
+  </script>
 </body>
 </html>
